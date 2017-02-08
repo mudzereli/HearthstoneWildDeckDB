@@ -1,0 +1,98 @@
+.row
+  .col-sm-8
+    .panel.panel-success
+      .panel-heading
+        | Deck Statistics
+        small.pull-right {{ Filters.StartDate | date:"MM/dd/yy" }} - {{ Filters.EndDate | date:"MM/dd/yy" }}
+      .panel-body
+        .row
+          .col-sm-6
+            div(google-chart, chart="ChartByClass", style="height:200px; width: 100%;")
+          .col-sm-6
+            div(google-chart, chart="ChartByArchetype", style="height:200px; width: 100%;")
+        .row
+          .col-sm-6
+            div(google-chart, chart="ChartByEvent", style="height:200px; width: 100%;")
+          .col-sm-6
+            .table-responsive
+              .panel.panel-info
+                .panel-heading
+                  | Statistical Analysis
+                table.table.table-striped.table-condensed.table-bordered
+                  tbody
+                    tr
+                      td
+                        strong Filtered Decks
+                      td {{ FILTERDECKDB.length }}
+                    tr
+                      td
+                        strong Most Played Class
+                      td(class="fg-{{ ChartByClass.data.rows[0].c[0].v.toUpperCase() }}") {{ ChartByClass.data.rows[0].c[0].v }}
+                    tr
+                      td
+                        strong Least Played Class
+                      td(class="fg-{{ ChartByClass.data.rows[ChartByClass.data.rows.length-1].c[0].v.toUpperCase() }}") {{ ChartByClass.data.rows[ChartByClass.data.rows.length-1].c[0].v }}
+                    tr
+                      td
+                        strong Most Played Archetype
+                      td(class="fg-{{ ChartByArchetype.data.rows[0].c[0].v.toUpperCase() }}") {{ ChartByArchetype.data.rows[0].c[0].v }}
+                    tr
+                      td
+                        strong Least Played Archetype
+                      td(class="fg-{{ ChartByArchetype.data.rows[ChartByArchetype.data.rows.length-1].c[0].v.toUpperCase() }}") {{ ChartByArchetype.data.rows[ChartByArchetype.data.rows.length-1].c[0].v }}
+                    tr
+                      td
+                        strong Most Played Event
+                      td(class="fg-{{ ChartByEvent.data.rows[0].c[0].v.toUpperCase() }}") {{ ChartByEvent.data.rows[0].c[0].v }}
+  .col-sm-4
+    .panel.panel-default
+      .panel-heading.unselectable(class="bg-{{ Application.CurrentlySelectedDeck.CLASS }}")
+        | Decks [{{ Application.CurrentlySelectedDeckIndex+1 }}/{{ FILTERDECKDB.length }}]
+        .pull-right 
+          span.glyphicon.glyphicon-triangle-left(style="cursor: pointer;", ng-if="Application.CurrentlySelectedDeckIndex > 0", ng-click="Application.CurrentlySelectedDeckIndex=Application.CurrentlySelectedDeckIndex-1; SelectDeck(Application.CurrentlySelectedDeckIndex);")
+          | &nbsp;&nbsp;
+          span.glyphicon.glyphicon-triangle-right(style="cursor: pointer;", ng-if="Application.CurrentlySelectedDeckIndex < (FILTERDECKDB.length-1)", ng-click="Application.CurrentlySelectedDeckIndex=Application.CurrentlySelectedDeckIndex+1; SelectDeck(Application.CurrentlySelectedDeckIndex);")
+          span.glyphicon.glyphicon-triangle-right(class="fgl-{{ Application.CurrentlySelectedDeck.CLASS }}", ng-if="Application.CurrentlySelectedDeckIndex >= (FILTERDECKDB.length-1)")
+          | &nbsp;&nbsp;
+          small {{ Application.CurrentlySelectedDeck.DATE | date:'MM/dd/yy' }}
+      .panel-body(style="font-size: 0.8em;")
+        .table-responsive
+          table.table.table-striped.table-condensed.table-headerless
+            tbody
+              tr
+                td
+                  strong Player
+                td {{ Application.CurrentlySelectedDeck.PLAYER | titleCase }}
+              tr
+                td
+                  strong Archetype
+                td(class="fg-{{ Application.CurrentlySelectedDeck.CLASS }}") {{ Application.CurrentlySelectedDeck.ARCHETYPE | titleCase }}
+              tr
+                td
+                  strong Event
+                td {{ Application.CurrentlySelectedDeck.EVENT | titleCase }}
+              tr
+                td
+                  strong Date
+                td {{ Application.CurrentlySelectedDeck.DATE | date:'MM/dd/yyyy' }}
+              tr
+                td
+                  strong Deck
+                td
+                  .table-responsive
+                    table.table.table-hover.table-condensed(style="font-size: 0.8em;")
+                      thead
+                        th #
+                        th Card
+                      tbody
+                        tr(ng-init="Application.CurrentlySelectedDeck.TempCardInfo[$index] = GetCardDBInfo(card[1]);", ng-repeat="card in Application.CurrentlySelectedDeck.CARDLIST", style="cursor: help;", tooltip-placement="left", tooltip-append-to-body="true", tooltip-html-unsafe="<img src='{{ GetCardImage(Application.CurrentlySelectedDeck.TempCardInfo[$index]) }}' width='150px' height='227px'><div class='clearfix'></div>")
+                          td.slim-row
+                            strong {{ card[0] }}
+                          td.slim-row
+                            span(class="fg-{{ Application.CurrentlySelectedDeck.TempCardInfo[$index].playerClass }}") 
+                              i.fa.fa-circle-o(class="fg-{{ Application.CurrentlySelectedDeck.TempCardInfo[$index].rarity }}")
+                              &nbsp;
+                              | {{ card[1] }}
+        button.btn.btn-block.btn-success.hidden-xs(ngclipboard data-clipboard-text="{{GetTextListFromDeckList(Application.CurrentlySelectedDeck.CARDLIST)}}")
+          | Copy Deck to Clipboard 
+          span.glyphicon.glyphicon-copy

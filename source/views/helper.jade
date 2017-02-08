@@ -1,0 +1,107 @@
+.row
+  .col-sm-6
+    .panel.panel-primary
+      .panel-heading
+        | Main Cards to Consider 
+        small.hidden-xs ({{ FILTERDECKDB.length }} decks)
+        .pull-right
+          small.visible-xs ({{ FILTERDECKDB.length }} decks)
+          button.btn.btn-sm.btn-success.hidden-xs(ngclipboard, data-clipboard-text="{{GetTextListFromCardGroup(CopyClipboardCards)}}", tooltip="Copy these cards to the Clipboard")
+            span.glyphicon.glyphicon-copy
+        .clearfix
+      .panel-body
+        .row
+          .col-md-6
+            .panel.panel-success
+              .panel-heading
+                | Key Cards 
+                small.pull-right ({{ GetCardCount(Tier1Cards) }} cards) 
+              .table-responsive
+                table.table.table-hover.table-condensed(style="font-size: 0.6em;")
+                  thead
+                    th Avg#
+                    th Card
+                    th Seen%
+                  tbody
+                    tr(ng-init="TempCardInfo[card.NAME] = GetCardDBInfo(card.NAME);", ng-repeat="card in Tier1Cards | limitTo: 30", style="cursor: help;", tooltip-placement="right", tooltip-append-to-body="true", tooltip-html-unsafe="<img src='{{ GetCardImage(TempCardInfo[card.NAME]) }}' width='150px' height='227px'><div class='clearfix'></div>")
+                      td.slim-row
+                        strong {{ card.TOTALCOUNT / card.SEENCOUNT | number: 1 }}
+                      td.slim-row 
+                        span(class="fg-{{ TempCardInfo[card.NAME].playerClass }}") 
+                          i.fa.fa-circle-o(class="fg-{{ TempCardInfo[card.NAME].rarity }}")
+                          &nbsp;
+                          | {{ card.NAME }}
+                      td.slim-row 
+                        | {{ card.SEENCOUNT / FILTERDECKDB.length * 100 | number: 1 }}% 
+          .col-md-6
+            .panel.panel-info
+              .panel-heading
+                | Good Cards 
+                small.pull-right ({{ GetCardCount(Tier2Cards) }} cards) 
+              .table-responsive
+                table.table.table-hover.table-condensed(style="font-size: 0.6em;")
+                  thead
+                    th Avg#
+                    th Card
+                    th Seen%
+                  tbody
+                    tr(ng-init="TempCardInfo[card.NAME] = GetCardDBInfo(card.NAME);", ng-repeat="card in Tier2Cards | limitTo: 30", style="cursor: help;", tooltip-placement="right", tooltip-append-to-body="true", tooltip-html-unsafe="<img src='{{ GetCardImage(TempCardInfo[card.NAME]) }}' width='150px' height='227px'><div class='clearfix'></div>")
+                      td.slim-row
+                        strong {{ card.TOTALCOUNT / card.SEENCOUNT | number: 1 }}
+                      td.slim-row 
+                        span(class="fg-{{ TempCardInfo[card.NAME].playerClass }}") 
+                          i.fa.fa-circle-o(class="fg-{{ TempCardInfo[card.NAME].rarity }}")
+                          &nbsp;
+                          | {{ card.NAME }}
+                      td.slim-row 
+                        | {{ card.SEENCOUNT / FILTERDECKDB.length * 100 | number: 1 }}%  
+  .col-sm-6
+    .panel.panel-default
+      .panel-heading
+        | Other Cards to Consider
+      .panel-body
+        .row
+          .col-md-6
+            .panel.panel-warning
+              .panel-heading
+                | Tech Cards 
+                small.pull-right ({{ GetCardCount(Tier3Cards) }} cards) 
+              .table-responsive
+                table.table.table-hover.table-condensed(style="font-size: 0.6em;")
+                  thead
+                    th Avg#
+                    th Card
+                    th Seen%
+                  tbody
+                    tr(ng-init="TempCardInfo[card.NAME] = GetCardDBInfo(card.NAME);", ng-repeat="card in Tier3Cards | limitTo: 30", style="cursor: help;", tooltip-placement="left", tooltip-append-to-body="true", tooltip-html-unsafe="<img src='{{ GetCardImage(TempCardInfo[card.NAME]) }}' width='150px' height='227px'><div class='clearfix'></div>")
+                      td.slim-row
+                        strong {{ card.TOTALCOUNT / card.SEENCOUNT | number: 1 }}
+                      td.slim-row 
+                        span(class="fg-{{ TempCardInfo[card.NAME].playerClass }}") 
+                          i.fa.fa-circle-o(class="fg-{{ TempCardInfo[card.NAME].rarity }}")
+                          &nbsp;
+                          | {{ card.NAME }}
+                      td.slim-row 
+                        | {{ card.SEENCOUNT / FILTERDECKDB.length * 100 | number: 1 }}%
+          .col-md-6
+            .panel.panel-danger
+              .panel-heading
+                | Other Cards 
+                small.pull-right ({{ GetCardCount(Tier4Cards) }} cards) 
+              .table-responsive
+                table.table.table-hover.table-condensed(style="font-size: 0.6em;")
+                  thead
+                    th Avg#
+                    th Card
+                    th Seen%
+                  tbody
+                    tr(ng-init="TempCardInfo[card.NAME] = GetCardDBInfo(card.NAME);", ng-repeat="card in Tier4Cards | limitTo: 30", style="cursor: help;", tooltip-placement="left", tooltip-append-to-body="true", tooltip-html-unsafe="<img src='{{ GetCardImage(TempCardInfo[card.NAME]) }}' width='150px' height='227px'><div class='clearfix'></div>")
+                      td.slim-row
+                        strong {{ card.TOTALCOUNT / card.SEENCOUNT | number: 1 }}
+                      td.slim-row 
+                        span(class="fg-{{ TempCardInfo[card.NAME].playerClass }}") 
+                          i.fa.fa-circle-o(class="fg-{{ TempCardInfo[card.NAME].rarity }}")
+                          &nbsp;
+                          | {{ card.NAME }}
+                      td.slim-row 
+                        | {{ card.SEENCOUNT / FILTERDECKDB.length * 100 | number: 1 }}%

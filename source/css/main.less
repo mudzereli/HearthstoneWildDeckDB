@@ -1,0 +1,128 @@
+/* LESS variables */
+@footer-height: 45;
+@navbar-brand-width: 33; /* percentage */
+@background-url: '';
+
+/* main styling */
+html {
+    footer {
+        background-color: white;
+    }
+}
+
+/* centered background image */
+body { 
+  background: url(@background-url) no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+/* sticky footer */
+* {
+    margin: 0;
+}
+html {
+    height: 100%;
+    body {
+        height: 100%;
+    }
+    .wrapper {
+        min-height: 100%;
+        margin: 0 auto @footer-height * -1px;
+    }
+    footer, .push {
+        height: @footer-height + 0px;
+    }
+    footer {
+        padding-top: 5px;
+    }
+}
+
+/* justified navbar */
+@media (min-width: 768px){
+    .navbar-header {
+        width: @navbar-brand-width + 0% !important;
+    }
+    .navbar-nav {
+        margin: 0 auto !important;
+        display: table !important;
+        table-layout: auto !important;
+        float: none !important;
+        width: 100% - @navbar-brand-width !important;
+    }
+    .navbar-nav>li {
+        display: table-cell !important;
+        float: none !important;
+        text-align: center !important;
+    }
+}
+
+.table-headerless > tbody > tr:first-child > td {
+    border: none;
+}
+
+.fg-FREE { color: #9d9d9d }
+.fg-COMMON { color: #a9a9a9 }
+.fg-RARE { color: #0070dd }
+.fg-EPIC { color: #a335ee }
+.fg-LEGENDARY { color: #ff8000 }
+.fg-NEUTRAL    { color: #444444 !important; }
+
+.fg-MAGE    { color: darken(#69CCF0,35%) !important; }
+.fg-PRIEST  { color: darken(#F0F0F0,45%) !important; }
+.fg-WARLOCK { color: darken(#9482C9,15%) !important; }
+.fg-SHAMAN  { color: darken(#0070DE,15%) !important; }
+.fg-WARRIOR { color: darken(#C79C6E,25%) !important; }
+.fg-DRUID   { color: darken(#FF7D0A,25%) !important; }
+.fg-ROGUE   { color: darken(#FFF569,45%) !important; }
+.fg-HUNTER  { color: darken(#ABD473,25%) !important; }
+.fg-PALADIN { color: darken(#F58CBA,35%) !important; }
+
+.fgl-MAGE    { color: #69CCF0 !important; }
+.fgl-PRIEST  { color: #F0F0F0 !important; }
+.fgl-WARLOCK { color: #9482C9 !important; }
+.fgl-SHAMAN  { color: #0070DE !important; }
+.fgl-WARRIOR { color: #C79C6E !important; }
+.fgl-DRUID   { color: #FF7D0A !important; }
+.fgl-ROGUE   { color: #FFF569 !important; }
+.fgl-HUNTER  { color: #ABD473 !important; }
+.fgl-PALADIN { color: #F58CBA !important; }
+
+.bg-MAGE    { background-color: #69CCF0 !important }
+.bg-PRIEST  { background-color: #F0F0F0 !important }
+.bg-WARLOCK { background-color: #9482C9 !important }
+.bg-SHAMAN  { background-color: #0070DE !important }
+.bg-WARRIOR { background-color: #C79C6E !important }
+.bg-DRUID   { background-color: #FF7D0A !important }
+.bg-ROGUE   { background-color: #FFF569 !important }
+.bg-HUNTER  { background-color: #ABD473 !important }
+.bg-PALADIN { background-color: #F58CBA !important }
+
+*.unselectable {
+   -moz-user-select: -moz-none;
+   -khtml-user-select: none;
+   -webkit-user-select: none;
+
+   /*
+     Introduced in IE 10.
+     See http://ie.microsoft.com/testdrive/HTML5/msUserSelect/
+   */
+   -ms-user-select: none;
+   user-select: none;
+}
+
+.popover-content
+{
+  color: black;
+}
+
+.tooltip.in{opacity:1!important;}
+
+.slim-row{
+  padding-top: 1px !important;
+  margin-top: 1px !important;
+  padding-bottom: 1px !important;
+  margin-bottom: 1px !important;
+}
