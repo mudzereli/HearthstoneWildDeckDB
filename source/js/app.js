@@ -98,7 +98,7 @@ angular.module('AngularApp', [
     $scope.BaseURL = '/HearthstoneDeckDB';
     $scope.Application =
       {
-          Name: 'Hearthstone Deck DB',
+          Name: 'Hearthstone Wild Deck DB',
           CurrentlySelectedDeckIndex: 0,
           DeckListShowing: []
       };
